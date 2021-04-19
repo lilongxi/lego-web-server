@@ -22,14 +22,8 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: 14
-            - name: print node version
+            - name: lint and test
               run: |
-                  node -v
-                  npm -v
-                  echo 'hello github actions'
-    test2:
-        runs-on: ubuntu-latest
-        steps:
-            - run: touch a.txt
-            - run: echo 100 > a.txt
-            - run: cat a.txt
+                  npm i
+                  npm run lint
+                  npm run test:remote

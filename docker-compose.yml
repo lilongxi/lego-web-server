@@ -1,0 +1,50 @@
+version: '3'
+services:
+    lego-web-server:
+        build:
+            context: . # 当前目录 docker build -t lego-web-server
+            dockerfile: Dockerfile # 基于Dockerfile构建
+        image: lego-web-server # 依赖当前 Dockerfile 创建出来的镜像
+        container_name: lego-web-server
+        ports: 
+            - 8081:8080 # 宿住机通过 8081 访问
+    lego-web-redis:
+        image: redis # 使用官网镜像
+        container_name: lego-web-redis
+        ports: 
+            # 宿住机 可以用 127.0.0.1:6378链接容器中数据库 redis-cli -h 127.0.0.1 -p 6378
+            # 此时127.0.0.1是docker容器本身
+            - 6378:6379
+        environment: 
+            - TZ=Asia/Shanghai # 设置时区
+    lego-web-mysql:
+        image: mysql  # 引用官网 mysql 镜像
+        container_name: lego-web-mysql
+        restart: always # 出错重启
+        privileged: true # 高权限执行下边的 mysql/init
+        command:  --default-authentication-plugin=mysql_native_password # 远程访问
+        ports: 
+            - 3305:3306  # 宿主机可以用 127.0.0.1:3305 即可连接容器中的数据库
+        volumes:
+            - .docker-volumes/mysql/log:/var/log/mysql # 记录日志
+            - .docker-volumes/mysql/data:/var/lib/mysql # 数据持久化
+            - ./mysql/init:/docker-entrypoint-initdb.d # 初始化 sql
+        environment: 
+            - MYSQL_DATABASE=testdb # 初始化容器时创建数据库
+            - MYSQL_ROOT_PASSWORD=940727ipad
+            # - MYSQL_USER=shuangyue #创建 test 用户
+            # - MYSQL_PASSWORD=shuangyue #设置 test 用户的密码
+            - TZ=Asia/Shanghai # 设置时区
+    lego-web-mongo:
+        image: mongo
+        container_name: lego-web-mongo
+        restart: always
+        volumes: 
+            - '.docker-volumes/mongo/data:/data/db' # 数据持久化
+        environment:
+            - MONGO_INITDB_DATABASE=testdb
+            # - MONGO_INITDB_ROOT_USERNAME=root
+            # - MONGO_INITDB_ROOT_PASSWORD=123456
+            - TZ=Asia/Shanghai # 设置时区
+        ports: 
+            - '27016:27017' # 宿主机可以用 127.0.0.1:27016 即可连接容器中的数据库
