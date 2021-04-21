@@ -33,6 +33,6 @@ app.use(
 
 if (!isTest) app.use(logger())
 
-app.use(index.routes(), index.allowedMethods());
+app.use(index.routes(), index.allowedMethods())
 
 module.exports = app
