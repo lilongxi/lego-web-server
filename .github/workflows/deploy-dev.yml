@@ -27,7 +27,8 @@ jobs:
                   mkdir -p ~/.ssh/
                   echo "${{secrets.LLX_ID_RSA}}" > ~/.ssh/id_rsa
                   chmod 600 ~/.ssh/id_rsa
-           - name: deploy
+                  ssh-keyscan "116.85.16.44" >> ~/.ssh/known_hosts
+            - name: deploy
               run: |
                   ssh work@116.85.16.44 "
                     # 【注意】用 work 账号登录，手动创建 /home/work/lego-web 目录
