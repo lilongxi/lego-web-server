@@ -10,7 +10,7 @@ const contentSchema = mongoose.Schema(
         // 配置信息，如微信分享配置
         setting: Object,
     },
-    { timestamps: true }
+    { timestamps: true } // 自动创建createdAt updatedAt
 )
 
 // 为发布的内容

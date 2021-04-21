@@ -33,15 +33,14 @@ jobs:
                   ssh work@116.85.16.44 "
                     # 【注意】用 work 账号登录，手动创建 /home/work/lego-web 目录
                     # 然后 git clone https://username:password@github.com/imooc-lego/biz-editor-server.git -b dev （私有仓库，使用 github 用户名和密码）
-                    # 记得删除 origin ，否则会暴露 github 密码
+                    # 记得删除 origin ，否则会暴露 github 密码 因为clone时候带了密码 git remote -v可查看信息
 
                     cd /home/work/lego-web/lego-web-server;
-                    git remote add origin https://lilongxi:${{secrets.LLX_PASSWORD}}@github.com/lilongxi/lego-web-server.git;
+                    git remote add origin https://github.com/lilongxi/lego-web-server.git;
                     git checkout dev;
                     git pull origin dev; # 重新下载最新代码
                     git remote remove origin; # 删除 origin ，否则会暴露 github 密码
-                    # 启动 docker
-                    docker-compose build lego-web-server; # 和 docker-compose.yml service 名字一致
+                    docker-compose build lego-web-server; # 启动 docker 和 docker-compose.yml service 名字一致
                     docker-compose up -d;
                   "
             - name: delete ssh key # 删除 ssh key

@@ -93,6 +93,11 @@
          defaultValue: false,
          comment: '是否公开显示，在首页公共的模板列表',
      },
+     extra: {
+         type: STRING,
+         defaultValue: '',
+         comment: '保留扩展字段'
+     }
  })
  
  // 和 UserModel 建立关系
