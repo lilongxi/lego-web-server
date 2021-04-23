@@ -34,8 +34,6 @@ jobs:
                     # 【注意】用 work 账号登录，手动创建 /home/work/lego-web 目录
                     # 然后 git clone https://username:password@github.com/imooc-lego/biz-editor-server.git -b dev （私有仓库，使用 github 用户名和密码）
                     # 记得删除 origin ，否则会暴露 github 密码 因为clone时候带了密码 git remote -v可查看信息
-
-                    cd /home/work/lego-web/lego-web-server;
                   "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
