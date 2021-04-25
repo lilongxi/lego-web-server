@@ -22,7 +22,7 @@ app.use(onerror)
 app.use(cors)
 
 // 配置 jwt
-app.use(jwt)
+app.use(jwt);
 
 // middlewares
 app.use(
