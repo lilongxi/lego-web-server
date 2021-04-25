@@ -30,6 +30,6 @@ jobs:
                   ssh-keyscan "116.85.16.44" >> ~/.ssh/known_hosts
             - name: deploy
               run: |
-                  ssh work@116.85.16.44
+                  ssh root@116.85.16.44
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
